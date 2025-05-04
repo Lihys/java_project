@@ -1,17 +1,18 @@
 package amy_lihy_project2;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class CollegeManager {
-    private static final int DEFAULT_ARRAY_LENGTH = 1;
+    public static final int DEFAULT_ARRAY_LENGTH = 1;
 
     private static Lecturer[] lecturers = new Lecturer[DEFAULT_ARRAY_LENGTH];
     private static Board[] boards = new Board[DEFAULT_ARRAY_LENGTH];
     private static Department[] departments = new Department[DEFAULT_ARRAY_LENGTH];
 
-    private static int lecturerCounter = 0;
-    private static int boardCounter = 0;
-    private static int departmentCounter = 0;
+    private static int lecturerCounter;
+    private static int boardCounter;
+    private static int departmentCounter;
 
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -27,9 +28,8 @@ public class CollegeManager {
             "Display average salary of lecturers in department",
             "Display lecturers' information",
             "Display boards' information",
-            "Assign lecturer to a department"
+            //"Assign lecturer to a department"
     };
-
 
 
     void run() {
@@ -52,7 +52,7 @@ public class CollegeManager {
                 case 8 -> displayAvgSalaryInDept();
                 case 9 -> displayLecturersInfo();
                 case 10 -> displayBoardsInfo();
-                case 11 -> assignLecturerToDept();
+                //case 11 -> assignLecturerToDept();
                 default -> System.out.println("Unexpected value.");
             }
         } while (userChoice != 0);
@@ -185,7 +185,7 @@ public class CollegeManager {
 
         Lecturer candidate = lecturerValidation(candidateName);
 
-        while (!isDr(candidate)){
+        while (!isDrOrHigher(candidate)){
             System.out.print("Only lecturer's who has a DR degree can be head of board. please choose a different lecturer, or enter 0 to add a new lecturer - ");
              candidateName = scanner.nextLine();
 
@@ -347,11 +347,11 @@ public class CollegeManager {
 
     private static void displayBoardsInfo() {
         for (int i = 0; i < boardCounter; i++) {
-            System.out.println(boards[i]);
+            System.out.println(boards[i].getName() );
         }
     }
 
-    private void assignLecturerToDept() {
+  /*  private void assignLecturerToDept() {
         System.out.println("---- Assign a lecturer to a department ----");
 
         System.out.print("Enter the lecturer's name: ");
@@ -365,7 +365,7 @@ public class CollegeManager {
         lecturer.setDepartment(departmentValidation(deptName));
 
         System.out.println("Lecturer assigned to department!");
-    }
+    }*/
 
     public static Department departmentValidation(String deptName){
         while (!deptNameExists(deptName)) {
@@ -437,28 +437,15 @@ public class CollegeManager {
         return null; // Not found
     }
     public static Lecturer[] expandLecturerArray() {
-        Lecturer[] temp = new Lecturer[lecturers.length * 2];
-        for (int i = 0; i < lecturers.length; i++) {
-            temp[i] = lecturers[i];
-        }
-        return temp;
+        return lecturers = Arrays.copyOf(lecturers,lecturerCounter * 2 );
     }
 
     public static Board[] expandBoardArray() {
-        Board[] temp = new Board[boards.length * 2];
-        for (int i = 0; i < boards.length; i++) {
-            temp[i] = boards[i];
-        }
-        return temp;
+        return boards = Arrays.copyOf(boards,boardCounter * 2 );
     }
 
     public static Department[] expandDepartmentArray() {
-
-        Department[] temp = new Department[departments.length * 2];
-        for (int i = 0; i < departments.length; i++) {
-            temp[i] = departments[i];
-        }
-        return temp;
+        return departments = Arrays.copyOf(departments, departmentCounter * 2);
     }
 
     private static void printAllDepartments() {
@@ -468,7 +455,7 @@ public class CollegeManager {
     }
 
 
-    private static boolean isDr(Lecturer candidate){
-        return candidate.getDegreeType() == DegreeType.DR;
+    private static boolean isDrOrHigher(Lecturer candidate){
+        return (candidate.getDegreeType() == DegreeType.DR || candidate.getDegreeType() == DegreeType.PROF) ;
     }
 }
