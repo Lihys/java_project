@@ -1,8 +1,5 @@
 package amy_lihy_project2;
 
-
-import static amy_lihy_project2.CollegeManager.expandBoardArray;
-
 public class Lecturer {
     private String name;
     private int id;
@@ -32,7 +29,7 @@ public class Lecturer {
 
     public void joinBoard(Board board){
         if (boards.length==boardsJoined){
-            this.boards=expandBoardArray();
+            this.boards=CollegeManager.expandBoardArray();
         }
 
         this.boards[boardsJoined++]=board;
