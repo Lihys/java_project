@@ -11,7 +11,6 @@ public class Department {
         this.studentsNum=studentsNum;
     }
 
-
     public String getName() {
         return this.name;
     }
