@@ -1,10 +1,9 @@
 package amy_lihy_project2;
 
-import static amy_lihy_project2.CollegeManager.expandLecturerArray;
 
 public class Board {
     private String name;
-    private Lecturer[] lecturersInBoard;
+    private Lecturer[] lecturersInBoard= new Lecturer[CollegeManager.DEFAULT_ARRAY_LENGTH];
     private int lecturersNum;
     private Lecturer headOfBoard;
 
@@ -19,7 +18,7 @@ public class Board {
 
     public void assignLecturer(Lecturer newLecturer){
         if (lecturersInBoard.length==lecturersNum){
-            lecturersInBoard = expandLecturerArray();
+            lecturersInBoard = CollegeManager.expandLecturerArray();
         }
         lecturersInBoard[lecturersNum++] = newLecturer;
     }
